@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ha_web_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : Controller
     {
 
@@ -19,7 +19,10 @@ namespace ha_web_api.Controllers
             {
                 DbEntities db = new DbEntities();
 
-                User u = db.Users.ToList().Find(i => i.Email == "");
+                var teste = db.Users.ToList();
+                Console.WriteLine(teste);
+
+                User u = db.Users.ToList().Find(i => i.Email == user.Email);
 
                 string token = u != null
                     ? u.Password.Equals(user.Password) ? TokenAccess.Create(u) : ""
@@ -29,5 +32,7 @@ namespace ha_web_api.Controllers
             }
             else return new JsonResult(new { status=false, message="User cannot be null!"});
         }
+
+
     }
 }
