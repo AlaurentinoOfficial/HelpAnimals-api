@@ -9,6 +9,7 @@ namespace ha_web_api.Services
     {
         public static string Encoder(string value, string key)
         {
+            
             return value;
         }
 

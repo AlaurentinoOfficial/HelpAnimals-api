@@ -8,19 +8,16 @@ using System.Threading.Tasks;
 
 namespace ha_web_api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api")]
     public class AuthController : Controller
     {
 
-        [HttpPost]
-        public JsonResult post([FromBody] User user)
+        [HttpPost("login")]
+        public JsonResult Login([FromBody] User user)
         {
             if (user != null)
             {
                 DbEntities db = new DbEntities();
-
-                var teste = db.Users.ToList();
-                Console.WriteLine(teste);
 
                 User u = db.Users.ToList().Find(i => i.Email == user.Email);
 
@@ -33,6 +30,19 @@ namespace ha_web_api.Controllers
             else return new JsonResult(new { status=false, message="User cannot be null!"});
         }
 
+        [HttpPost("register")]
+        public JsonResult Register([FromBody] User user)
+        {
+            if (user != null)
+            {
+                DbEntities db = new DbEntities();
+
+                db.Users.Add(user);
+
+                return new JsonResult(new { status = true, message = "Succefuly user registred"});
+            }
+            else return new JsonResult(new { status = false, message = "User cannot be null!" });
+        }
 
     }
 }
