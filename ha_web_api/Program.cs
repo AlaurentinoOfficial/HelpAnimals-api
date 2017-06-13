@@ -10,6 +10,8 @@ namespace ha_web_api
 {
     public class Program
     {
+        public static string APP_HASH_KEY = "f78324hkm3jhuajker475341swaf43";
+
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
