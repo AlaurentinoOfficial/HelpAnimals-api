@@ -22,8 +22,8 @@ namespace ha_web_api.Controllers
                 User u = db.Users.ToList().Find(i => i.Email == user.Email);
 
                 string token = u != null
-                    ? u.Password.Equals(user.Password) ? TokenAccess.Create(u) : ""
-                    : "";
+                    ? u.Password.Equals(user.Password) ? TokenAccess.Create(u) : "Invalid password!"
+                    : "User not registred";
 
                 return new JsonResult(new { status = token != "", token = token });
             }
@@ -38,6 +38,7 @@ namespace ha_web_api.Controllers
                 DbEntities db = new DbEntities();
 
                 db.Users.Add(user);
+                db.SaveChanges();
 
                 return new JsonResult(new { status = true, message = "Succefuly user registred"});
             }

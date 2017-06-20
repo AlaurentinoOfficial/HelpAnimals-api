@@ -14,14 +14,14 @@ namespace ha_web_api.Models
         public int Id{ get; set; }
         public string Name { get; set; }
         public DateTime BirthDay { get; set; }
-        public string Sexo { get; set; }
+        public string Gender { get; set; }
         public string Email { get; set; }
         public List<Animal> Animals { get; set; }
         private string password;
         public string Password
         {
             get { return password; }
-            set { password = Crypt.Encoder(value, Program.APP_HASH_KEY); }
+            set { password = Crypt.Encrypt(value, Program.APP_HASH_KEY); }
         }
     }
 }

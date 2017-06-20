@@ -11,14 +11,14 @@ namespace ha_web_api.Services
         public static string Create(User user)
         {
             string buffer = user.Name+"/"+user.Email;
-            buffer = Crypt.Encoder(buffer, Program.APP_HASH_KEY);
+            buffer = Crypt.Encrypt(buffer, Program.APP_HASH_KEY);
 
             return buffer;
         }
 
         public static bool Validate(string token)
         {
-            string email = Crypt.Decoder(token, Program.APP_HASH_KEY);
+            string email = Crypt.Decrypt(token, Program.APP_HASH_KEY);
             email = email.Split('/')[1];
 
             return new DbEntities().Users.ToList().Find(i => i.Email == email) != null;

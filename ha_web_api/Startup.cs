@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ha_web_api.Models;
 
 namespace ha_web_api
 {
@@ -20,6 +21,24 @@ namespace ha_web_api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            DbEntities db = new DbEntities();
+            if (db.Users.Count() == 0)
+            {
+                db.Users.Add(
+                    new User
+                    {
+                        Name = "Anderson Laurentino",
+                        Email = "alaurentino.br@gmail.com",
+                        Password = "1234567890n",
+                        Gender = "Masc",
+                        BirthDay = new DateTime(2000, 5, 6),
+                        Animals = null,
+                    }
+                );
+
+                db.SaveChanges();
+            }
         }
 
         public IConfigurationRoot Configuration { get; }
